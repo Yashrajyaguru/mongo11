@@ -1,0 +1,146 @@
+how to create table 
+
+create table tablename(
+    fieldname datatype [constraints],
+    fieldname datatype [constraints]
+)
+example
+create table student(
+    id integer PRIMARY KEY AUTO_INCREMENT,
+    name varchar(64) not null,
+    gender char(1) not null,
+    dob date not null,
+    city char(12),
+    email varchar(128) unique not null,
+    mobile varchar(12) unique not null,
+    photo varchar(255)
+)
+-------------------------------------------------------
+how to insert row in table 
+1st method 
+insert into tablename values(values1,values2,values3,values4)
+
+insert into subject values(0,'React js','Javascript library','reajs-syllabus.pdf')
+
+2nd method 
+insert into tablename (fieldname1,fieldname2,fieldname3,fieldname4) values(values1,values2,values3,values4)
+
+insert into subject(name,detail,syllabus) values ('Node js','serverside scripting language','nodejs.pdf')
+
+insert into subject (name) values ('bootstrap');
+
+insert into student (name,gender,dob,email,mobile) values ('rahul','m','1984-05-30','rahul@gmail.com','1234567890');
+
+how to delete row from table 
+------------------------------------------------------------------
+
+delete from tablename [condition]
+
+delete all rows from subect 
+delete from subject
+
+delete specific row as per condition 
+delete from subject where name='bootstrap'
+
+delete from subject where id>=4
+
+delete all row and reset id 
+truncate table subject
+
+remove table with data
+
+drop table subject
+
+how to update row
+---------------------------------
+update tablename set field=value, field2=value, [.....] [where condition]
+
+update customer country to india, state to gujarat and city to bhavnagar of those customer whose customernumber is 103
+
+update customers set country='india',state='gujarat',city='bhavnagar' where customernumber=103
+
+update customer postalcode to 364001 whose customer name is ankit
+
+update customers set postalcode='364001' where customername='ankit'
+
+update customer creditlimit to 199999 of those customer who are from usa 
+update customers set creditlimit=199999 where country='usa'
+
+increase creditlimit by 1 rupees of of those customer who are from usa 
+update customers set creditlimit=creditlimit+1 where country='usa'
+
+---------------------------------------------------
+how to fetch data from table 
+
+display all fields of all customers 
+
+select * from customers
+
+display all fields of of first 30 customers 
+
+select * from customers limit 0,30
+
+display all fields of of next 30 customers 
+select * from customers limit 31,30
+
+display all fields of of first 30 customers name wise ascending order 
+select * from customers order by customername limit 0,30
+
+display all fields of of first 30 customers name wise descending order 
+select * from customers order by customername desc limit 0,30
+
+display all fields of of first 100 customers first country wise then state wise and then city wise 
+select * from  customers order by country,state,city limit 0,100
+
+
+display customernumber,name,city,country,state,creditlimit fields of first 30 customers 
+select customernumber,customername,country,city,state,creditlimit from customers limit 0,30
+
+filter data
+display customernumber,name,city,country,state,creditlimit fields of those customers who are from usa 
+select customernumber,customername,country,city,state,creditlimit from customers where country='usa'
+
+display customernumber,name,city,country,state,creditlimit fields of those customers whose creditlimit above 500000
+select customernumber,customername,country,city,state,creditlimit from customers where creditlimit>=500000
+
+aggregate functions
+---------------------------------------------------------
+function that works upon numeric fields and always return single value is called aggregate function 
+
+findout total payment amount 
+select sum(amount) as total from payments
+
+findout minimum and maximum  payment amount 
+select min(amount) as minimum, max(amount) as maximum from payments
+
+findout average payment amount
+select avg(amount) as average from payments
+
+findout total no of employees 
+select count(*) as total_employee from employees
+
+findout customerwise total payment 
+select sum(amount) as total,customernumber from payments group by customernumber order by sum(amount)
+ 
+fetch country wise customer count
+select country,count(*) as total_customer from customers group by country
+
+findout customerwise total payment of those customer who have made < 25000 total payment 
+select sum(amount) as total,customernumber from payments group by customernumber having sum(amount)<25000 order by sum(amount)
+
+join query
+--------------
+query which fetches data from more then one table is called join query.
+
+display customerno, name, and his payment details 
+select customernumber,customername from customers
+select * from payments
+
+select c.customernumber,customername,p.* from customers as c, payments as p where c.customernumber=p.
+
+display customerno, name, orderno, orderdate,requireddate & status of those cusotmer who are from usa
+
+select customernumber,customername from customers where country='usa'
+select ordernumber,orderdate,requiredDate,status from orders
+
+select c.customernumber,customername,ordernumber,orderdate,requiredDate,status from customers as c, orders as o where country='usa' and c.customernumber=o.customernumber
